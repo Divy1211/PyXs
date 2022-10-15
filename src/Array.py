@@ -20,7 +20,7 @@ class Array:
         ArrayType.VECTOR: Vector,
     }
 
-    def __init__(self, dtype: ArrayType, name: str = "", ls: list[int] = None, *, init_len: int = None):
+    def __init__(self, dtype: ArrayType, name: str = "", ls: list[int] = None, *, init_len: int = 0):
         if ls is None:
             ls = []
 
