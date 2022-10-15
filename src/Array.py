@@ -92,13 +92,13 @@ class Array:
             self._ls[item] = val
             return
         elif not isinstance(item, slice):
-            raise IndexError
+            raise TypeError(f"Array indices must be of type 'int' or 'slice'")
 
         start, stop, step = self._open_slice(item)
 
         for idx, ele in zip(range(start, stop, step), val):
             if not isinstance(ele, self.dtype): # type: ignore # pycharm bug https://stackoverflow.com/a/56494823/15379178
-                raise Exception
+                raise TypeError(f"{ele} of type '{type(ele)}' cannot be assigned to an array of type {self.dtype}")
             print(self._set(idx, ele))
 
         self._ls[start:stop:step] = val
