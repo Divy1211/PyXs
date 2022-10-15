@@ -20,16 +20,18 @@ class Array:
         ArrayType.VECTOR: Vector,
     }
 
-    def __init__(self, dtype: ArrayType, ls: list[int] = None):
+    def __init__(self, dtype: ArrayType, name: str = "", ls: list[int] = None, *, init_len: int = None):
         if ls is None:
             ls = []
 
-        self.dtype_name = Array._dtype_name[dtype].title()
-        self.dtype: type = Array._dtype[dtype]
-
-        self._len = bigger_pow_2(len(ls))
         Array._last_id += 1
         self._id = Array._last_id
+
+        self.name = name or f"array{self._id}"
+        self.dtype: type = Array._dtype[dtype]
+
+        self._len = max(init_len, bigger_pow_2(len(ls)))
+        self._dtype_name = Array._dtype_name[dtype].title()
 
         print(self._define())
 
@@ -41,7 +43,7 @@ class Array:
         self._ls = ls
 
     def _define(self):
-        return f'int array{self._id} = xsArrayCreate{self.dtype_name}(-1, {self._len}, "array{self._id}");'
+        return f'int {self.name} = xsArrayCreate{self._dtype_name}(-1, {self._len}, "{self.name}");'
 
     def _check_bounds(self, idx):
         if idx >= len(self._ls) or idx < -len(self._ls):
@@ -104,7 +106,7 @@ class Array:
         self._ls[start:stop:step] = val
 
     def _get(self, idx: int) -> str:
-        return f'xsArrayGet{self.dtype_name}(array{self._id}, {idx});'
+        return f'xsArrayGet{self._dtype_name}({self.name}, {idx});'
 
     def _set(self, idx: int, val) -> str:
-        return f'xsArraySet{self.dtype_name}(array{self._id}, {idx}, {val});'
+        return f'xsArraySet{self._dtype_name}({self.name}, {idx}, {val});'
