@@ -3,7 +3,7 @@ from classes.Vector import Vector
 from utils import bigger_pow_2
 
 
-class Array:
+class XsArray:
     _last_id = 0
     _dtype_name = {
         ArrayType.INT:    "int",
