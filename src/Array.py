@@ -1,4 +1,4 @@
-from classes.ArrayType import ArrayType
+from src.enums.ArrayType import ArrayType
 from classes.Vector import Vector
 from utils import bigger_pow_2
 
