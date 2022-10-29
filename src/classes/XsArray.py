@@ -1,5 +1,5 @@
-from src.enums.XsType import XsType, dtype_name, dtype_map
-from src.utils import bigger_pow_2
+from src.enums.XsType import XsType
+from src.utils import bigger_pow_2, dtype_map, dtype_name
 
 
 class XsArray:

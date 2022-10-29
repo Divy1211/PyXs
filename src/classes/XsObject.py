@@ -1,13 +1,5 @@
-from src.enums.XsType import XsType, dtype_name
-
-
-op_prec = {
-    '//': 1,
-    '/': 1,
-    '*': 1,
-    '+': 0,
-    '-': 0,
-}
+from src.enums.XsType import XsType
+from src.utils import op_prec, dtype_map, dtype_name
 
 
 class XsObject:
@@ -32,8 +24,9 @@ class XsObject:
         self.s_name = f"_{name}"
 
     def __set__(self, instance, value):
-        if not isinstance(value, XsObject):
-            raise TypeError(f"{self.p_name} can only be assigned an XsType")
+        dtype = dtype_map[self.dtype]
+        if not isinstance(value, dtype):
+            raise TypeError(f"Cannot assign object of type '{type(value)}' to object of type {dtype}")
 
         defn = ""
         if getattr(instance, self.s_name, None) is None:
