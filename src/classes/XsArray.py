@@ -1,37 +1,22 @@
-from src.enums.ArrayType import ArrayType
-from classes.Vector import Vector
-from utils import bigger_pow_2
+from src.enums.XsType import XsType, dtype_name, dtype_map
+from src.utils import bigger_pow_2
 
 
 class XsArray:
     _last_id = 0
-    _dtype_name = {
-        ArrayType.INT:    "int",
-        ArrayType.FLOAT:  "float",
-        ArrayType.BOOL:   "bool",
-        ArrayType.STRING: "string",
-        ArrayType.VECTOR: "vector",
-    }
-    _dtype = {
-        ArrayType.INT: int,
-        ArrayType.FLOAT: float,
-        ArrayType.BOOL: bool,
-        ArrayType.STRING: str,
-        ArrayType.VECTOR: Vector,
-    }
 
-    def __init__(self, dtype: ArrayType, name: str = "", ls: list[int] = None, *, init_len: int = 0):
+    def __init__(self, dtype: XsType, name: str = "", ls: list[int] = None, *, init_len: int = 0):
         if ls is None:
             ls = []
 
-        Array._last_id += 1
-        self._id = Array._last_id
+        XsArray._last_id += 1
+        self._id = XsArray._last_id
 
         self.name = name or f"array{self._id}"
-        self.dtype: type = Array._dtype[dtype]
+        self.dtype: type = dtype_map[dtype]
 
         self._len = max(init_len, bigger_pow_2(len(ls)))
-        self._dtype_name = Array._dtype_name[dtype].title()
+        self._dtype_name = dtype_name[dtype].title()
 
         print(self._define())
 
