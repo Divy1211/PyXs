@@ -5,3 +5,6 @@ from src.classes.XsObject import XsObject
 class XsVector(XsObject, Vector):
     def __init__(self, x, y, z = 0, op = None):
         super().__init__(op)
+
+    def cast_to(self, dtype: type) -> XsObject | None:
+        return None

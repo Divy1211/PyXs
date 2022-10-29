@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from src.enums.XsType import XsType
 from src.utils import op_prec, dtype_map, dtype_name
 
@@ -18,6 +20,8 @@ class XsObject:
                 expr = f"({expr})"
             return expr
 
+    def cast_to(self, dtype: type) -> XsObject | None:
+        raise NotImplementedError("This should never be raised")
 
     def __set_name__(self, cls, name):
         self.p_name = name
@@ -25,8 +29,11 @@ class XsObject:
 
     def __set__(self, instance, value):
         dtype = dtype_map[self.dtype]
+
         if not isinstance(value, dtype):
-            raise TypeError(f"Cannot assign object of type '{type(value)}' to object of type {dtype}")
+            if (v := value.cast_to(dtype)) is None:
+                raise TypeError(f"Cannot assign object of type '{type(value).__name__}' to object of type '{dtype.__name__}'")
+            value = v
 
         defn = ""
         if getattr(instance, self.s_name, None) is None:
