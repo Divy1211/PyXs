@@ -6,7 +6,7 @@ from src.classes.XsContext import XsContext
 from src.classes.XsObject import XsObject
 from src.utils import get_dtype_map, dtype_name
 
-def xs_fucntion(ctx: Type[XsContext]):
+def xs_function(ctx: Type[XsContext]):
     if ctx._used:
         raise TypeError(f"Context '{ctx.__name__}' has already been used!")
 
