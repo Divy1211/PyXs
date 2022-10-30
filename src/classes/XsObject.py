@@ -1,8 +1,7 @@
 from __future__ import annotations
 
 from src.enums.XsType import XsType
-from src.utils import op_prec, dtype_map, dtype_name
-
+from src.utils import op_prec, get_dtype_map, dtype_name
 
 class XsObject:
 
@@ -28,6 +27,7 @@ class XsObject:
         self.s_name = f"_{name}"
 
     def __set__(self, instance, value):
+        dtype_map = get_dtype_map()
         dtype = dtype_map[self.dtype]
 
         if not isinstance(value, dtype):
@@ -44,6 +44,7 @@ class XsObject:
 
         value.var_name = self.p_name
         value.op = {}
+
         setattr(instance, self.s_name, value)
 
     def __get__(self, instance, cls):

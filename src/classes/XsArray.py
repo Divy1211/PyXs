@@ -1,5 +1,5 @@
 from src.enums.XsType import XsType
-from src.utils import bigger_pow_2, dtype_map, dtype_name
+from src.utils import bigger_pow_2, get_dtype_map, dtype_name
 
 
 class XsArray:
@@ -13,6 +13,7 @@ class XsArray:
         self._id = XsArray._last_id
 
         self.name = name or f"array{self._id}"
+        dtype_map = get_dtype_map()
         self.dtype: type = dtype_map[dtype]
 
         self._len = max(init_len, bigger_pow_2(len(ls)))

@@ -1,6 +1,5 @@
 from math import ceil, log
 
-from src.classes.Vector import Vector
 from src.enums.XsType import XsType
 
 
@@ -24,10 +23,17 @@ dtype_name = {
     XsType.STRING: "string",
     XsType.VECTOR: "vector",
 }
-dtype_map = {
-    XsType.INT: int,
-    XsType.FLOAT: float,
-    XsType.BOOL: bool,
-    XsType.STRING: str,
-    XsType.VECTOR: Vector,
-}
+
+def get_dtype_map():
+    from src.classes.XsInt import XsInt
+    from src.classes.XsFloat import XsFloat
+    from src.classes.XsString import XsString
+    from src.classes.XsVector import XsVector
+
+    return {
+        XsType.INT: XsInt,
+        XsType.FLOAT: XsFloat,
+        XsType.BOOL: bool,
+        XsType.STRING: XsString,
+        XsType.VECTOR: XsVector,
+    }

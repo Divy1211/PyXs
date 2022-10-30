@@ -6,8 +6,8 @@ class XsInt(XsObject, int):
         super().__init__(op)
 
     def cast_to(self, dtype: type) -> XsObject | None:
-        if dtype is float:
-            from src.classes.XsFloat import XsFloat
+        from src.classes.XsFloat import XsFloat
+        if dtype is XsFloat:
             xsobj = XsFloat(self)
             xsobj.op = self.op
             return xsobj
